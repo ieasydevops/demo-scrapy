@@ -36,7 +36,13 @@ trap cleanup SIGINT SIGTERM
 
 export DB_PATH=./monitor.db
 
-go run cmd/server/main.go &
+if [ ! -f bin/server ]; then
+    echo "编译后端服务..."
+    mkdir -p bin
+    go build -ldflags="-s -w" -o bin/server ./cmd/server/main.go
+fi
+
+./bin/server &
 BACKEND_PID=$!
 
 sleep 2

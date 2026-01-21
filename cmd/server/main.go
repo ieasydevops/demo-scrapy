@@ -2,13 +2,9 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
-	"strings"
 	"time"
 
-	_ "github.com/ieasydevops/demo-scrapy/docs"
-	"github.com/ieasydevops/demo-scrapy/internal/api"
 	"github.com/ieasydevops/demo-scrapy/internal/config"
 	"github.com/ieasydevops/demo-scrapy/internal/database"
 	"github.com/ieasydevops/demo-scrapy/internal/scheduler"
@@ -31,11 +27,8 @@ func main() {
 		log.Fatal("数据库初始化失败:", err)
 	}
 
-	for _, wp := range cfg.WebPages {
-		result, _ := database.DB.Exec("INSERT OR IGNORE INTO web_pages (url, name) VALUES (?, ?)", wp.URL, wp.Name)
-		log.Printf("初始化网页配置: %s", wp.Name)
-		_ = result
-	}
+	database.DB.Exec("INSERT OR IGNORE INTO web_pages (url, name) VALUES (?, ?)",
+		"http://zfcg.szggzy.com:8081/gsgg/secondPage.html", "深圳政府采购网")
 
 	for _, keyword := range cfg.Keywords {
 		database.DB.Exec("INSERT OR IGNORE INTO keywords (keyword) VALUES (?)", keyword)
@@ -44,18 +37,6 @@ func main() {
 
 	database.DB.Exec("INSERT OR IGNORE INTO push_config (email, push_time) VALUES (?, ?)",
 		cfg.Email.SMTPUser, "17")
-
-	for _, mc := range cfg.MonitorConfigs {
-		var webPageID int64
-		err := database.DB.QueryRow("SELECT id FROM web_pages WHERE name = ?", mc.WebPageName).Scan(&webPageID)
-		if err == nil && webPageID > 0 {
-			keywordsStr := strings.Join(mc.Keywords, ",")
-			database.DB.Exec(`INSERT OR IGNORE INTO monitor_config 
-				(web_page_id, crawl_time, crawl_freq, keywords) VALUES (?, ?, ?, ?)`,
-				webPageID, mc.CrawlTime, mc.CrawlFreq, keywordsStr)
-			log.Printf("初始化监控配置: %s, 时间=%s, 频率=%s, 关键词=%v", mc.WebPageName, mc.CrawlTime, mc.CrawlFreq, mc.Keywords)
-		}
-	}
 
 	scheduler.Start()
 	if err := scheduler.ReloadTasks(); err != nil {
@@ -68,12 +49,6 @@ func main() {
 		scheduler.ExecuteCrawlTask()
 	}()
 
-	port := cfg.Server.Port
-	if port == 0 {
-		port = 8080
-	}
-	r := api.SetupRouter()
-	if err := r.Run(fmt.Sprintf(":%d", port)); err != nil {
-		log.Fatal("服务器启动失败:", err)
-	}
+	log.Println("服务运行中，按 Ctrl+C 停止服务")
+	select {}
 }
