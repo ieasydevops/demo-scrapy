@@ -1,0 +1,613 @@
+basePath: /api
+definitions:
+  models.Keyword:
+    properties:
+      id:
+        type: integer
+      keyword:
+        type: string
+    type: object
+  models.MonitorConfig:
+    properties:
+      crawl_freq:
+        type: string
+      crawl_time:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      keywords:
+        type: string
+      updated_at:
+        type: string
+      web_page_id:
+        type: integer
+    type: object
+  models.PushConfig:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      push_time:
+        type: string
+    type: object
+  models.SubscribeConfig:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      push_time:
+        type: string
+    type: object
+  models.WebPage:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      url:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: 403608355@qq.com
+    name: API Support
+  description: 政府采购网公告监控系统的 API 文档
+  termsOfService: http://swagger.io/terms/
+  title: 政府采购网监控系统 API
+  version: "1.0"
+paths:
+  /announcements:
+    get:
+      consumes:
+      - application/json
+      description: 获取采购信息动态，支持时间排序和搜索
+      parameters:
+      - description: 搜索关键字
+        in: query
+        name: keyword
+        type: string
+      - default: desc
+        description: '排序方式: desc(降序) 或 asc(升序)'
+        in: query
+        name: order
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: 每页数量
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 获取公告列表
+      tags:
+      - 采购信息动态
+  /keywords:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有监控关键字
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Keyword'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 获取关键字列表
+      tags:
+      - 关键字管理
+    post:
+      consumes:
+      - application/json
+      description: 添加一个新的监控关键字，并立即重新加载任务
+      parameters:
+      - description: 关键字信息
+        in: body
+        name: keyword
+        required: true
+        schema:
+          $ref: '#/definitions/models.Keyword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Keyword'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 创建关键字
+      tags:
+      - 关键字管理
+  /keywords/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定ID的关键字，并立即重新加载任务
+      parameters:
+      - description: 关键字ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 删除关键字
+      tags:
+      - 关键字管理
+  /monitor-config:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有监控配置列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MonitorConfig'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 获取监控配置
+      tags:
+      - 监控配置管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的监控配置
+      parameters:
+      - description: 监控配置
+        in: body
+        name: config
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 创建监控配置
+      tags:
+      - 监控配置管理
+  /monitor-config/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定ID的监控配置
+      parameters:
+      - description: 配置ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 删除监控配置
+      tags:
+      - 监控配置管理
+    put:
+      consumes:
+      - application/json
+      description: 更新指定ID的监控配置
+      parameters:
+      - description: 配置ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 监控配置
+        in: body
+        name: config
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 更新监控配置
+      tags:
+      - 监控配置管理
+  /push-config:
+    get:
+      consumes:
+      - application/json
+      description: 获取邮件推送配置信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PushConfig'
+      summary: 获取推送配置
+      tags:
+      - 推送配置
+    put:
+      consumes:
+      - application/json
+      description: 更新邮件推送配置（邮箱和推送时间）
+      parameters:
+      - description: 推送配置
+        in: body
+        name: config
+        required: true
+        schema:
+          $ref: '#/definitions/models.PushConfig'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PushConfig'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 更新推送配置
+      tags:
+      - 推送配置
+  /subscribe-config:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有订阅用户邮箱列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.SubscribeConfig'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 获取订阅配置列表
+      tags:
+      - 订阅配置管理
+    post:
+      consumes:
+      - application/json
+      description: 添加新的订阅用户邮箱
+      parameters:
+      - description: 订阅配置
+        in: body
+        name: config
+        required: true
+        schema:
+          $ref: '#/definitions/models.SubscribeConfig'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SubscribeConfig'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 创建订阅配置
+      tags:
+      - 订阅配置管理
+  /subscribe-config/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定ID的订阅配置
+      parameters:
+      - description: 配置ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 删除订阅配置
+      tags:
+      - 订阅配置管理
+    put:
+      consumes:
+      - application/json
+      description: 更新指定ID的订阅配置
+      parameters:
+      - description: 配置ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 订阅配置
+        in: body
+        name: config
+        required: true
+        schema:
+          $ref: '#/definitions/models.SubscribeConfig'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SubscribeConfig'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 更新订阅配置
+      tags:
+      - 订阅配置管理
+  /web-pages:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有监控网页的列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.WebPage'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 获取网页列表
+      tags:
+      - 网页管理
+    post:
+      consumes:
+      - application/json
+      description: 添加一个新的监控网页
+      parameters:
+      - description: 网页信息
+        in: body
+        name: page
+        required: true
+        schema:
+          $ref: '#/definitions/models.WebPage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.WebPage'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 创建网页
+      tags:
+      - 网页管理
+  /web-pages/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定ID的网页
+      parameters:
+      - description: 网页ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 删除网页
+      tags:
+      - 网页管理
+    put:
+      consumes:
+      - application/json
+      description: 更新指定ID的网页信息
+      parameters:
+      - description: 网页ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 网页信息
+        in: body
+        name: page
+        required: true
+        schema:
+          $ref: '#/definitions/models.WebPage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.WebPage'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 更新网页
+      tags:
+      - 网页管理
+swagger: "2.0"
