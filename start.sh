@@ -14,47 +14,6 @@ fi
 
 mkdir -p data
 
-echo "检查依赖..."
-
-if ! command -v go &> /dev/null; then
-    echo "错误: 未找到 Go，请先安装 Go 1.21 或更高版本"
-    exit 1
-fi
-
-if ! command -v node &> /dev/null; then
-    echo "错误: 未找到 Node.js，请先安装 Node.js 18 或更高版本"
-    exit 1
-fi
-
-echo "✓ Go 版本: $(go version | awk '{print $3}')"
-echo "✓ Node.js 版本: $(node --version)"
-
-echo ""
-echo "安装后端依赖..."
-go mod download
-
-echo ""
-echo "生成 Swagger 文档..."
-if command -v swag &> /dev/null; then
-    swag init -g cmd/server/main.go -o docs 2>/dev/null && echo "✓ Swagger 文档已生成" || echo "⚠ Swagger 文档生成失败"
-elif go run github.com/swaggo/swag/cmd/swag@latest init -g cmd/server/main.go -o docs 2>/dev/null; then
-    echo "✓ Swagger 文档已生成"
-else
-    echo "⚠ Swagger 文档生成失败，但可以继续运行"
-fi
-
-echo ""
-echo "安装前端依赖..."
-cd frontend
-if [ ! -d "node_modules" ]; then
-    echo "正在安装前端依赖..."
-    npm install
-else
-    echo "前端依赖已安装"
-fi
-cd ..
-
-echo ""
 echo "启动服务..."
 echo "后端API: http://localhost:5080"
 echo "Swagger UI: http://localhost:5080/swagger/index.html"
