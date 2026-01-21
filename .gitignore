@@ -1,0 +1,7 @@
+vendor/
+build/
+*.db
+*.log
+*.pid
+.env
+.DS_Store
