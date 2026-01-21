@@ -56,9 +56,9 @@ cd ..
 
 echo ""
 echo "启动服务..."
-echo "后端API: http://localhost:8080"
-echo "Swagger UI: http://localhost:8080/swagger/index.html"
-echo "前端: http://localhost:3000"
+echo "后端API: http://localhost:5080"
+echo "Swagger UI: http://localhost:5080/swagger/index.html"
+echo "前端: http://localhost:5000"
 echo ""
 echo "按 Ctrl+C 停止所有服务"
 echo ""

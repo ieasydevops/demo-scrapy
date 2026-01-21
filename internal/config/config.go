@@ -82,7 +82,7 @@ func InitDefaultConfig(configPath string) error {
 			SMTPPass: "your_smtp_password",
 		},
 		Server: ServerConfig{
-			Port:   8080,
+			Port:   5080,
 			DBPath: "./monitor.db",
 		},
 	}

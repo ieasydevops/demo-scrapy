@@ -18,5 +18,5 @@ email:
   smtp_pass: "your_smtp_password"
 
 server:
-  port: 8080
+  port: 5080
   db_path: "./monitor.db"

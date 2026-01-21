@@ -15,7 +15,7 @@ api.interceptors.response.use(
       console.error('API错误:', error.response.data)
     } else if (error.request) {
       console.error('网络错误:', error.request)
-      ElMessage.error('无法连接到后端服务，请确保后端已启动在 http://localhost:8080')
+      ElMessage.error('无法连接到后端服务，请确保后端已启动在 http://localhost:5080')
     } else {
       console.error('错误:', error.message)
     }

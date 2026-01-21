@@ -37,8 +37,8 @@ fi
 
 echo ""
 echo "启动后端服务..."
-echo "后端API: http://localhost:8080"
-echo "Swagger UI: http://localhost:8080/swagger/index.html"
+echo "后端API: http://localhost:5080"
+echo "Swagger UI: http://localhost:5080/swagger/index.html"
 echo ""
 
 export DB_PATH=./monitor.db
