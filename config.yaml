@@ -1,22 +1,18 @@
 web_pages:
-  - name: "深圳政府采购网"
-    url: "http://zfcg.szggzy.com:8081/gsgg/secondPage.html"
-
+    - name: 深圳政府采购网
+      url: http://zfcg.szggzy.com:8081/gsgg/secondPage.html
 keywords:
-  - "生态环境局"
-
+    - 生态环境局
 monitor_configs:
-  - web_page_name: "深圳政府采购网"
-    crawl_time: "9"
-    crawl_freq: "daily"
-    keywords:
-      - "生态环境局"
-
+    - web_page_name: 深圳政府采购网
+      crawl_time: "9"
+      crawl_freq: daily
+      keywords:
+        - 生态环境局
 email:
-  smtp_host: "smtp.qq.com"
-  smtp_user: "403608355@qq.com"
-  smtp_pass: "your_smtp_password"
-
+    smtp_host: smtp.qq.com
+    smtp_user: 403608355@qq.com
+    smtp_pass: your_smtp_password
 server:
-  port: 5080
-  db_path: "./monitor.db"
+    port: 5080
+    db_path: ./monitor.db
