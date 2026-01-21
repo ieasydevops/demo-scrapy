@@ -1,14 +1,3 @@
-// @title           政府采购网监控系统 API
-// @version         1.0
-// @description     政府采购网公告监控系统的 API 文档
-// @termsOfService  http://swagger.io/terms/
-
-// @contact.name   API Support
-// @contact.email  403608355@qq.com
-
-// @host      localhost:8080
-// @BasePath  /api
-
 package main
 
 import (

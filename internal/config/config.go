@@ -8,11 +8,11 @@ import (
 )
 
 type Config struct {
-	WebPages      []WebPageConfig      `yaml:"web_pages"`
-	Keywords      []string             `yaml:"keywords"`
-	MonitorConfigs []MonitorConfigItem  `yaml:"monitor_configs"`
-	Email         EmailConfig          `yaml:"email"`
-	Server        ServerConfig         `yaml:"server"`
+	WebPages       []WebPageConfig     `yaml:"web_pages"`
+	Keywords       []string            `yaml:"keywords"`
+	MonitorConfigs []MonitorConfigItem `yaml:"monitor_configs"`
+	Email          EmailConfig         `yaml:"email"`
+	Server         ServerConfig        `yaml:"server"`
 }
 
 type WebPageConfig struct {
