@@ -2,6 +2,9 @@
 
 set -e
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 if [ ! -f .env ]; then
     echo "创建.env文件..."
     cat > .env << EOF
