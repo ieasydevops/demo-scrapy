@@ -18,11 +18,11 @@ import (
 	"strings"
 	"time"
 
-	_ "github.com/ieasydevops/demo/docs"
-	"github.com/ieasydevops/demo/internal/api"
-	"github.com/ieasydevops/demo/internal/config"
-	"github.com/ieasydevops/demo/internal/database"
-	"github.com/ieasydevops/demo/internal/scheduler"
+	_ "github.com/ieasydevops/demo-scrapy/docs"
+	"github.com/ieasydevops/demo-scrapy/internal/api"
+	"github.com/ieasydevops/demo-scrapy/internal/config"
+	"github.com/ieasydevops/demo-scrapy/internal/database"
+	"github.com/ieasydevops/demo-scrapy/internal/scheduler"
 )
 
 func main() {

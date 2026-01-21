@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ieasydevops/demo/internal/database"
-	"github.com/ieasydevops/demo/internal/models"
-	"github.com/ieasydevops/demo/internal/scheduler"
+	"github.com/ieasydevops/demo-scrapy/internal/database"
+	"github.com/ieasydevops/demo-scrapy/internal/models"
+	"github.com/ieasydevops/demo-scrapy/internal/scheduler"
 )
 
 // GetMonitorConfig 获取监控配置

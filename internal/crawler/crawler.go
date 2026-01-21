@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/ieasydevops/demo/internal/database"
-	"github.com/ieasydevops/demo/internal/models"
+	"github.com/ieasydevops/demo-scrapy/internal/database"
+	"github.com/ieasydevops/demo-scrapy/internal/models"
 )
 
 func CrawlPage(url string, keywords []string) ([]models.Announcement, error) {

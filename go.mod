@@ -1,4 +1,4 @@
-module github.com/ieasydevops/demo
+module github.com/ieasydevops/demo-scrapy
 
 go 1.24.0
 

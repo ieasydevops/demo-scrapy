@@ -5,10 +5,10 @@ import (
 	"log"
 	"strings"
 
-	"github.com/ieasydevops/demo/internal/crawler"
-	"github.com/ieasydevops/demo/internal/database"
-	"github.com/ieasydevops/demo/internal/email"
-	"github.com/ieasydevops/demo/internal/models"
+	"github.com/ieasydevops/demo-scrapy/internal/crawler"
+	"github.com/ieasydevops/demo-scrapy/internal/database"
+	"github.com/ieasydevops/demo-scrapy/internal/email"
+	"github.com/ieasydevops/demo-scrapy/internal/models"
 	"github.com/robfig/cron/v3"
 )
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"gopkg.in/gomail.v2"
-	"github.com/ieasydevops/demo/internal/models"
+	"github.com/ieasydevops/demo-scrapy/internal/models"
 )
 
 func SendEmail(to string, announcements []models.Announcement) error {

@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ieasydevops/demo/internal/crawler"
-	"github.com/ieasydevops/demo/internal/database"
-	"github.com/ieasydevops/demo/internal/models"
+	"github.com/ieasydevops/demo-scrapy/internal/crawler"
+	"github.com/ieasydevops/demo-scrapy/internal/database"
+	"github.com/ieasydevops/demo-scrapy/internal/models"
 )
 
 func main() {
